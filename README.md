@@ -83,6 +83,10 @@ reward = 1 if reward > 0 else reward = -100
 
 Here we are using the Proximal Policy Optimization algorithm (PPO2 is the version optimized for GPU), which is an Actor-Critic method: it uses a value function to improve the policy gradient descent (by reducing the variance).
 
+It combines ideas from A2C (having multiple workers and using an entropy bonus for exploration) and TRPO (it uses a trust region to improve stability and avoid catastrophic drops in performance).
+
+PPO is an on-policy algorithm, which means that the trajectories used to update the networks must be collected using the latest policy. It is usually less sample efficient than off-policy alorithms like DQN, SAC or TD3, but is much faster regarding wall-clock time.
+
 ## 🕵️‍♀️ 模拟实验
 
 ### 环境安装
