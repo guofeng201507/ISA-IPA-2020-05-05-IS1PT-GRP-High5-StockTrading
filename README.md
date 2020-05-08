@@ -81,6 +81,8 @@ reward = 1 if reward > 0 else reward = -100
 
 因为动作输出的数值是连续，因此使用基于策略梯度的优化算法，其中比较知名的是 [PPO 算法](https://arxiv.org/abs/1707.06347)，OpenAI 和许多文献已把 PPO 作为强化学习研究中首选的算法。PPO 优化算法 Python 实现参考 [stable-baselines](https://stable-baselines.readthedocs.io/en/master/modules/ppo2.html)。
 
+Here we are using the Proximal Policy Optimization algorithm (PPO2 is the version optimized for GPU), which is an Actor-Critic method: it uses a value function to improve the policy gradient descent (by reducing the variance).
+
 ## 🕵️‍♀️ 模拟实验
 
 ### 环境安装
