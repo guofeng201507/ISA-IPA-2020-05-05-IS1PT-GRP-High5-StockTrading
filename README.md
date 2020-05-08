@@ -1,6 +1,8 @@
 # 📈 如何用深度强化学习自动炒股
 
 ## 💡 初衷
+https://github.com/araffin/rl-tutorial-jnrr19
+https://towardsdatascience.com/stable-baselines-a-fork-of-openai-baselines-reinforcement-learning-made-easy-df87c4b2fc82
 
 最近一段时间，受到新冠疫情的影响，股市接连下跌，作为一棵小白菜兼小韭菜，竟然产生了抄底的大胆想法，拿出仅存的一点私房钱梭哈了一把。
 
