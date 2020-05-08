@@ -87,6 +87,8 @@ It combines ideas from A2C (having multiple workers and using an entropy bonus f
 
 PPO is an on-policy algorithm, which means that the trajectories used to update the networks must be collected using the latest policy. It is usually less sample efficient than off-policy alorithms like DQN, SAC or TD3, but is much faster regarding wall-clock time.
 
+https://colab.research.google.com/github/Stable-Baselines-Team/rl-colab-notebooks/blob/master/stable_baselines_getting_started.ipynb#scrollTo=xVm9QPNVwKXN
+
 ## 🕵️‍♀️ 模拟实验
 
 ### 环境安装
