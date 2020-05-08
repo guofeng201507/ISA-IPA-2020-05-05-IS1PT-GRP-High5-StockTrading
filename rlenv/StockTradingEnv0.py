@@ -28,13 +28,15 @@ class StockTradingEnv(gym.Env):
         self.reward_range = (0, MAX_ACCOUNT_BALANCE)
 
         # Actions of the format Buy x%, Sell x%, Hold, etc.
-        self.action_space = spaces.Box(
-            low=np.array([0, 0]), high=np.array([3, 1]), dtype=np.float16)
+        self.action_space = spaces.Box(low=np.array([0, 0]), high=np.array([3, 1]), dtype=np.float16)
+
+        #for Mlppolicy
+        # self.action_space = spaces.Box(low=np.array([0, 0]), high=np.array([3, 1]), shape=(2,), dtype=np.float16)
+
 
         # Prices contains the OHCL values for the last five prices
-        self.observation_space = spaces.Box(
-            low=0, high=1, shape=(19,), dtype=np.float16)
-
+        self.observation_space = spaces.Box(low=0, high=1, shape=(19,), dtype=np.float16)
+        pass
     def _next_observation(self):
         obs = np.array([
             self.df.loc[self.current_step, 'open'] / MAX_SHARE_PRICE,
@@ -61,8 +63,10 @@ class StockTradingEnv(gym.Env):
 
     def _take_action(self, action):
         # Set the current price to a random price within the time step
-        current_price = random.uniform(
-            self.df.loc[self.current_step, "open"], self.df.loc[self.current_step, "close"])
+        # current_price = random.uniform(
+        #     self.df.loc[self.current_step, "open"], self.df.loc[self.current_step, "close"])
+
+        current_price = self.df.loc[self.current_step, "close"]
 
         action_type = action[0]
         amount = action[1]
@@ -76,7 +80,7 @@ class StockTradingEnv(gym.Env):
 
             self.balance -= additional_cost
             self.cost_basis = (
-                prev_cost + additional_cost) / (self.shares_held + shares_bought)
+                                      prev_cost + additional_cost) / (self.shares_held + shares_bought)
             self.shares_held += shares_bought
 
         elif action_type < 2:
@@ -110,7 +114,12 @@ class StockTradingEnv(gym.Env):
 
         # profits
         reward = self.net_worth - INITIAL_ACCOUNT_BALANCE
-        reward = 1 if reward > 0 else -100
+        if reward > 0:
+            reward = 20
+        elif reward == 0:
+            reward = -100
+        else:
+            reward = -100
 
         if self.net_worth <= 0:
             done = True
@@ -143,7 +152,7 @@ class StockTradingEnv(gym.Env):
     def render(self, mode='human', close=False):
         # Render the environment to the screen
         profit = self.net_worth - INITIAL_ACCOUNT_BALANCE
-        print('-'*30)
+        print('-' * 30)
         print(f'Step: {self.current_step}')
         print(f'Balance: {self.balance}')
         print(f'Shares held: {self.shares_held} (Total sold: {self.total_shares_sold})')
